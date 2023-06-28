@@ -26,10 +26,6 @@ function App() {
   }
  }
 
- /* useState(()=>{
-  console.log('app load')
- },[])
-  */
  return (
   <>
    {showWidgetModal && <WidgetGalleryModal setShowWidgetModal={setShowWidgetModal} selectedWidgetArea={selectedWidgetArea} widgets={widgets} setWidgets={setWidgets} />}
