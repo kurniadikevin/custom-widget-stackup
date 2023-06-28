@@ -5,12 +5,15 @@ import WidgetGalleryModal from './modals/WidgetGalleryModal';
 import Draggable from 'react-draggable';
 import TimerWidget from './widgets/TimerWidget';
 import CalendarWidget from './widgets/CalendarWidget';
+import CryptoPriceWidget from './widgets/CryptoPriceWidget';
+
  
 function App() {
  const [widgets, setWidgets] = useState([
   { id: new Date().getTime(), component: <ClockWidget />, area: 'main-widget', name: "Date and Time" },
   { id: new Date().getTime() + 2, component: <CalendarWidget />, area: 'right-widget', name: "Calendar" },
   { id: new Date().getTime() + 1, component: <TimerWidget />, area: 'left-widget', name:"Timer" },
+  { id: new Date().getTime() + 3, component: <CryptoPriceWidget />, area: 'main-widget', name:"Crypto Price" }
  ])
  const [showWidgetModal, setShowWidgetModal] = useState(false)
  const [selectedWidgetArea, setSelectedWidgetArea] = useState('')
@@ -22,7 +25,11 @@ function App() {
    console.log(error)
   }
  }
- 
+
+ /* useState(()=>{
+  console.log('app load')
+ },[])
+  */
  return (
   <>
    {showWidgetModal && <WidgetGalleryModal setShowWidgetModal={setShowWidgetModal} selectedWidgetArea={selectedWidgetArea} widgets={widgets} setWidgets={setWidgets} />}
