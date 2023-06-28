@@ -28,13 +28,14 @@ const fetchTop10Coin=async()=>{
       }
 }
 
+// conver to two decimal
 const convertToNumberDecimal=(input)=>{
     const num= Number(input);
     return num.toFixed(2)
 }
 
 const changeTextColor=(index)=>{
-    const pricePercents= document.querySelectorAll('#price-percent');
+    const pricePercents= document.querySelectorAll('#price');
     if(prevData.length > 0 && data.length > 0){
         if(prevData[index].priceUsd > data[index].priceUsd){
             pricePercents[index].style.color='#F48CA0';
@@ -44,7 +45,10 @@ const changeTextColor=(index)=>{
     }
 }
 
-
+//change color percent for negative and positive
+const changePercentColor=(value)=>{
+   return value < 0 ? '#F48CA0' : '#44D75F'
+}
 
 
 useEffect(()=>{
@@ -74,9 +78,15 @@ useEffect(() => {
                 <div>
                     <a style={{fontWeight : 800}}>{item.symbol.toUpperCase()}</a>/USD
                 </div>
-                <div id='price-percent' style={{ color : '#efaeae', fontWeight: 900}}>
-                    {convertToNumberDecimal(item.priceUsd)} $
-                    ({convertToNumberDecimal(item.changePercent24Hr)}%)
+                <div style={{display: 'flex', gap: 5}}>
+                    <div id='price' style={{ color : '#efaeae', fontWeight: 900}}>
+                        ${convertToNumberDecimal(item.priceUsd)}
+                    </div>
+                    <div style={{
+                         color : changePercentColor(convertToNumberDecimal(item.changePercent24Hr))
+                         }}>
+                        ({convertToNumberDecimal(item.changePercent24Hr)}%)
+                    </div>
                 </div>
             </div>
         )
