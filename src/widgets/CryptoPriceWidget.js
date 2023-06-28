@@ -21,11 +21,11 @@ const fetchTop10Coin=async()=>{
         const response = await fetch(url,{headers});
         const data = await response.json();
         setData(data.data);
+        console.log(data.data)
       } catch (error) {
         console.error('Error:', error);
       }
 }
-
 
 const convertToNumberDecimal=(input)=>{
     const num= Number(input);
@@ -33,9 +33,20 @@ const convertToNumberDecimal=(input)=>{
 }
 
 
-useEffect(()=>{
+/* useEffect(()=>{
     fetchTop10Coin()
+},[]) */
+
+useEffect(()=>{
+    const interval = setInterval(() => {
+        fetchTop10Coin()
+      }, 5000);
+      return () =>{
+         clearInterval(interval);
+        }
 },[])
+
+
   return (
     <div  style={{ minWidth: 300 }}>
        <div>Crypto Price</div>
@@ -45,7 +56,7 @@ useEffect(()=>{
                 <div>
                     <a style={{fontWeight : 800}}>{item.symbol.toUpperCase()}</a>/USD
                 </div>
-                <div style={{ color : '#efaeae'}}>
+                <div id='price-percent' style={{ color : '#efaeae'}}>
                     {convertToNumberDecimal(item.priceUsd)}
                     ({convertToNumberDecimal(item.changePercent24Hr)}%)
                 </div>
